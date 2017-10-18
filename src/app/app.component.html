@@ -1,9 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
+  <a class="navbar-brand" routerLink="/">Pad 19</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#extendedControlsMenu" aria-controls="extendedControlsMenu" aria-expanded="false" aria-label="Toggle navigation">
    <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="extendedControlsMenu">
     <ul class="navbar-nav ml-auto pr-2">
+      <li *ngIf="afAuth.authState | async;"
+        class="nav-item">
+        <a class="nav-link" routerLink="/conference" routerLinkActive="active">Conference Section</a>
+      </li>
       <li *ngIf="afAuth.authState | async; let user; else logInLink" ngbDropdown
         class="nav-item dropdown">
         <a ngbDropdownToggle
@@ -23,3 +28,7 @@
     </ul>
   </div>
 </nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
