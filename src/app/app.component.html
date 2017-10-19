@@ -5,7 +5,7 @@
   </button>
   <div class="collapse navbar-collapse" id="extendedControlsMenu">
     <ul class="navbar-nav ml-auto pr-2">
-      <li *ngIf="afAuth.authState | async;"
+      <li *ngIf="auth.user | async;"
         class="nav-item">
         <a class="nav-link" routerLink="/conference" routerLinkActive="active">Conference Section</a>
       </li>
