@@ -9,22 +9,17 @@
         class="nav-item">
         <a class="nav-link" routerLink="/conference" routerLinkActive="active">Conference Section</a>
       </li>
-      <li *ngIf="afAuth.authState | async; let user; else logInLink" ngbDropdown
-        class="nav-item dropdown">
+      <li *ngIf="auth.user | async; let user; else logInLink"
+        ngbDropdown class="nav-item dropdown">
         <a ngbDropdownToggle
-          class="nav-link dropdown-toggle" href="#" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          class="nav-link dropdown-toggle" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ user.displayName }}
         </a>
         <div ngbDropdownMenu
           class="dropdown-menu" aria-labelledby="userMenuDropdown">
-          <a (click)=logOut() class="dropdown-item" href="#">Log Out</a>
+          <a (click)=auth.logOut() class="dropdown-item" href="#">Log Out</a>
         </div>
       </li>
-      <ng-template #logInLink>
-        <li class="nav-item">
-          <a href="#" class="nav-link" (click)=logIn()>Log In with Google</a>
-        </li>
-      </ng-template>
     </ul>
   </div>
 </nav>
@@ -32,3 +27,10 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
+
+
+<ng-template #logInLink>
+  <li class="nav-item">
+    <a class="nav-link" (click)=auth.googleLogIn() href="#">Log In with Google</a>
+  </li>
+</ng-template>

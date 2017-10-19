@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { CoreModule } from './core/core.module';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -32,6 +34,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
     ),
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
