@@ -1,3 +1,51 @@
-<p>
-  conference works!
-</p>
+<div class="row">
+  <h2>Conference Section</h2>
+</div>
+
+<div class="row">
+  <button class="btn btn-outline-primary" (click)="openCreateConferenceModal(content)">Create New Conference</button>
+</div>
+
+
+<ul>
+  <li *ngFor="let conference of conferences | async">{{ conference.conferenceName }}</li>
+</ul>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Create new conference</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+
+      <div class="form-group">
+        <label for="conferenceNameInput">Conference Name</label>
+        <input [(ngModel)]="newConferenceName" [ngModelOptions]="{standalone: true}"
+          type="text" class="form-control" id="conferenceNameInput" aria-describedby="nameHelp" placeholder="Conference Name...">
+        <small id="nameHelp" class="form-text text-muted">This name is used by you and also displayed to the public. <br>(e.g. Portland Student Conference {{thisYear}})</small>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="newConferenceDate" ngbDatepicker #d="ngbDatepicker" [ngModelOptions]="{standalone: true}">
+          <button class="input-group-addon" (click)="d.toggle()" type="button">
+            <img src="assets/img/icons/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="createConference()">Create Conference</button>
+  </div>
+</ng-template>
