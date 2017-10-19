@@ -31,11 +31,9 @@ export class ConferenceComponent implements OnInit {
   newConferenceName: string;
   user: any;
 
-  constructor(
-    private modalService: NgbModal,
-    private readonly afs: AngularFirestore,
-    public readonly afAuth: AngularFireAuth
-  ) {
+  constructor(private modalService: NgbModal,
+              private readonly afs: AngularFirestore,
+              public readonly afAuth: AngularFireAuth) {
     this.newConferenceDate = {};
     this.newConferenceName = '';
     this.user = afAuth.authState;
