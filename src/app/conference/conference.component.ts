@@ -42,14 +42,16 @@ export class ConferenceComponent implements OnInit {
     auth.user.subscribe(user => {
       this.user =  user;
 
-      this.conferenceCollection = afs.collection<Conference>('conferences', ref => ref.where('createdBy', '==', this.user.uid));
-      this.conferences = this.conferenceCollection.snapshotChanges().map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Conference;
-          const id = a.payload.doc.id;
-          return { id, ...data };
+      if (user) {
+        this.conferenceCollection = afs.collection<Conference>('conferences', ref => ref.where('createdBy', '==', this.user.uid));
+        this.conferences = this.conferenceCollection.snapshotChanges().map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Conference;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
         });
-      });
+      }
     });
   }
 
