@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+import { AuthService } from './../core/auth.service';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 export interface Conference {
   conferenceName: string;
-  conferenceDate: object;
+  conferenceDate?: object;
   created: number;
   createdBy: string;
 }
@@ -33,20 +35,20 @@ export class ConferenceComponent implements OnInit {
 
   constructor(private modalService: NgbModal,
               private readonly afs: AngularFirestore,
-              public readonly afAuth: AngularFireAuth) {
+              private auth: AuthService) {
     this.newConferenceDate = {};
     this.newConferenceName = '';
-    this.user = afAuth.authState;
-    this.afAuth.authState.subscribe(data => this.user = data);
 
-    // FIXME: Needs to be able to not have issues with loading only conferences
-    // made by this issue.
-    this.conferenceCollection = afs.collection<Conference>('conferences', ref => ref.where('createdBy', '==', 'ksldj'));
-    this.conferences = this.conferenceCollection.snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Conference;
-        const id = a.payload.doc.id;
-        return { id, ...data };
+    auth.user.subscribe(user => {
+      this.user =  user;
+
+      this.conferenceCollection = afs.collection<Conference>('conferences', ref => ref.where('createdBy', '==', this.user.uid));
+      this.conferences = this.conferenceCollection.snapshotChanges().map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Conference;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
       });
     });
   }
