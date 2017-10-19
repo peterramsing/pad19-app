@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { CoreModule } from './core/core.module';
+import { AuthGuard } from './core/auth.guard';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -16,7 +17,7 @@ import { AppComponent } from './app.component';
 import { ConferenceComponent } from './conference/conference.component';
 
 const appRoutes: Routes = [
-  { path: 'conference', component: ConferenceComponent },
+  { path: 'conference', component: ConferenceComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
     ),
     CoreModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
