@@ -15,15 +15,18 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { ConferenceComponent } from './conference/conference.component';
+import { ConferenceDetailComponent } from './conference-detail/conference-detail.component';
 
 const appRoutes: Routes = [
   { path: 'conference', component: ConferenceComponent, canActivate: [AuthGuard] },
+  { path: 'conference/:id', component: ConferenceDetailComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConferenceComponent
+    ConferenceComponent,
+    ConferenceDetailComponent
   ],
   imports: [
     BrowserModule,

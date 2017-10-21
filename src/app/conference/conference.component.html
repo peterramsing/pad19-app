@@ -8,7 +8,9 @@
 
 
 <ul>
-  <li *ngFor="let conference of conferences | async">{{ conference.conferenceName }}</li>
+  <li *ngFor="let conference of conferences | async">
+    <a [routerLink]="['/conference', conference.id]">{{ conference.conferenceName }}</a>
+  </li>
 </ul>
 
 

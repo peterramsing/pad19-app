@@ -8,12 +8,6 @@ import { AuthService } from './../core/auth.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-export interface Conference {
-  conferenceName: string;
-  conferenceDate?: object;
-  created: number;
-  createdBy: string;
-}
 export interface ConferenceId extends Conference {
   id: string;
 }
