@@ -16,7 +16,8 @@ export class ConferenceDetailComponent implements OnInit {
   conferenceDoc: AngularFirestoreDocument<Conference>;
   private subRoute: any;
 
-  conference: Observable<Conference>;
+  private _conference: Observable<Conference>;
+  public conference: any;
   conferenceId: string;
 
   constructor(private afs: AngularFirestore,
@@ -25,13 +26,17 @@ export class ConferenceDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.conference = {};
     this.subRoute = this.route.params.subscribe(params => {
       this.conferenceId = params['id'];
     });
 
     this.conferenceDoc = this.afs.doc<Conference>(`conferences/${this.conferenceId}`);
-    this.conference = this.conferenceDoc.valueChanges()
-    // console.log(this.foo)
+    this._conference = this.conferenceDoc.valueChanges();
+
+    this._conference.subscribe(conf => {
+      this.conference = conf;
+    })
   }
 
 }
