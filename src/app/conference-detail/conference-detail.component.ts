@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title }     from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
@@ -21,8 +22,8 @@ export class ConferenceDetailComponent implements OnInit {
   conferenceId: string;
 
   constructor(private afs: AngularFirestore,
-              private route: ActivatedRoute) {
-
+              private route: ActivatedRoute,
+              private titleService: Title) {
   }
 
   ngOnInit() {
@@ -36,6 +37,7 @@ export class ConferenceDetailComponent implements OnInit {
 
     this._conference.subscribe(conf => {
       this.conference = conf;
+      this.titleService.setTitle(`Pad 19 - ${ this.conference.conferenceName }`);
     })
   }
 
