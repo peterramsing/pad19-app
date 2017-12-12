@@ -14,6 +14,14 @@ interface User {
 interface Conference {
   conferenceName: string;
   conferenceDate?: object;
-  created: number;
+  created: number; // FIXME! - createdAt
+  createdBy: string;
+}
+
+interface Survey {
+  surveyName: string;
+  surveyStartDate?: object;
+  surveyEndDate?: object;
+  createdAt: number;
   createdBy: string;
 }

@@ -1,1 +1,9 @@
-<h2>{{ conference.conferenceName }}</h2>
+<div class="row">
+  <h2>{{ conference.conferenceName }}</h2>
+
+  <section *ngIf="!conferenceHasSurvey">
+    <p>To get started working on a conference you'll want to create a survey.</p>
+    <a routerLink="['survey']">Create Survey</a>
+  </section>
+
+</div>

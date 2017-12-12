@@ -16,17 +16,20 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ConferenceComponent } from './conference/conference.component';
 import { ConferenceDetailComponent } from './conference-detail/conference-detail.component';
+import { SurveyCreatorComponent } from './survey-creator/survey-creator.component';
 
 const appRoutes: Routes = [
   { path: 'conference', component: ConferenceComponent, canActivate: [AuthGuard] },
   { path: 'conference/:id', component: ConferenceDetailComponent, canActivate: [AuthGuard]},
+  { path: 'conference/:id/survey/:id', component: SurveyCreatorComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     ConferenceComponent,
-    ConferenceDetailComponent
+    ConferenceDetailComponent,
+    SurveyCreatorComponent
   ],
   imports: [
     BrowserModule,
